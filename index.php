@@ -18,29 +18,63 @@
         <div class="container">
             <h2 class="text-center">Explore Foods</h2>
 
-            <a href="category-foods.html">
-            <div class="box-3 float-container">
-                <img src="images/pizza.jpg" alt="Pizza" class="img-responsive img-curve">
+            <?php
+                // Create Sql query to display categories from database
+                $sql="SELECT * FROM tbl_category WHERE active='Yes' AND featured='Yes' ";
+                // execute the query
+                $res=mysqli_query($conn,$sql);
+                // check and count the rows
+                $count=mysqli_num_rows($res);  //to coount rows to check wheather the caterory is available or not
+                // if the category is there thenwe will display on the front end otherwise we will diplay the error msg
+                if($count>0)
+                {
+                    // categories available
+                    while($row=mysqli_fetch_assoc($res))
+                    {
+                        // get the values like title,image name and id
+                        $id=$row['id'];
+                        $title=$row['title'];
+                        $image_name=$row['image_name'];
+                        ?>  <!-- break1 start here-->
+                        <!-- we are using the html inside the php by braking the php -->
+                        <a href="category-foods.html">
+                            <div class="box-3 float-container">
+                                <?php 
+                                // check wheathere image is available or not
+                                    if($image_name == "")
+                                    {
+                                        // display the message
+                                        echo '<div class="error">Image Not Available.</div>';
+                                    }
+                                    else
+                                    {
+                                        // display the image
+                                        ?>  <!-- break2 start here-->
+                                        <img src="<?php echo SITEURL;?>/images/category/<?php echo $image_name; ?>" alt="Pizza" class="img-responsive img-curve">
+                                        <?php //break 2 ends here
+                                    }
 
-                <h3 class="float-text text-white">Pizza</h3>
-            </div>
-            </a>
+                                ?>
+                                
+                                
+                                <h3 class="float-text text-white"><?php echo $title; ?></h3>
+                            </div>
+                        </a>
 
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/burger.jpg" alt="Burger" class="img-responsive img-curve">
+                        <?php //break1 End here 
+                    }
+                }
+                else
+                {
+                    // categories not available
+                    echo "<div class='error'>Category Not Available.</div>";
+                }
 
-                <h3 class="float-text text-white">Burger</h3>
-            </div>
-            </a>
 
-            <a href="#">
-            <div class="box-3 float-container">
-                <img src="images/momo.jpg" alt="Momo" class="img-responsive img-curve">
+            ?>
+            
 
-                <h3 class="float-text text-white">Momo</h3>
-            </div>
-            </a>
+            
 
             <div class="clearfix"></div>
         </div>
