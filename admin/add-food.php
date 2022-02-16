@@ -227,11 +227,7 @@
                 }
                 
             }
-            else
-            {
-                echo "Button Not Clicked";
-
-            }
+           
         ?>
 
 
