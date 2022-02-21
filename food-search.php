@@ -5,8 +5,10 @@
         <div class="container">
             <?php
                 // get the search key word
+
                 
-                $search=$_POST['search'];
+                // $search=$_POST['search'];  -->this was unscure becz if user pass ' or ""  in input then it will give error
+                $search=mysqli_real_escape_string($conn,$_POST['search']);
             ?>
             
             <h2>Foods on Your Search <a href="#" class="text-white"><?php echo $search; ?></a></h2>
