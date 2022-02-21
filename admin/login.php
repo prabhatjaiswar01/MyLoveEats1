@@ -53,8 +53,12 @@ if(isset($_POST['submit']))
     // echo "Button Clicked";
     // Process the Login
     // Step1:-- Get the data from the form
-    $username=$_POST["username"];
-    $password=md5($_POST["password"]);
+    // $username=$_POST["username"];
+    // $password=md5($_POST["password"]);
+
+    // to secure our php we are using that in our php page
+    $username=mysqli_real_escape_string($conn,$_POST['username']);
+    $password=mysqli_real_escape_string($conn,md5($_POST["password"]));
 
     // step2:--To check wheather the user with username and password exist or not
     $sql="SELECT * FROM tbl_admin WHERE user_name='$username' AND  password='$password' ";
